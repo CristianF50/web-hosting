@@ -6,6 +6,7 @@ import axios from 'axios';
 import sider from './Sidebar';
 import UsuariosModal from './UsuariosModal';
 import Title from 'antd/es/skeleton/Title';
+import ServiciosModal from './ServiciosModal';
 const { Content, Header } = Layout;
 const { Text } = Typography
 
@@ -59,14 +60,16 @@ export default class Usuarios extends Component {
         urlParams["search"] = search        
         
         this.setState({ loading: true, page, limit })
-        axios.get(`${process.env.REACT_APP_API_URL}/usuarios`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/servicios`, {
             headers: authHeader(),
             params: {
                 page,
                 limit,
                 search,
+                paginate: true
             }
         }).then(response => {
+            console.log(response.data)
             console.log(response.data.data.itemsList)
             this.setState({
                 usuarios: response.data.data.itemsList,
@@ -93,7 +96,7 @@ export default class Usuarios extends Component {
                 <Spin spinning={false}>
                     <Header style={{background: "#F1f1f1"}}>
                         <Row align="middle pt-1 pb-1" justify="space-between">
-                            <Text strong >Usuarios</Text> <Button onClick={() => this.setState({modalUsuarios: true})}> + </Button>
+                            <Text strong >Servicios</Text> <Button onClick={() => this.setState({modalUsuarios: true})}> + </Button>
                         </Row>
                     </Header>
                     <Content className="admin-content content-bg pd-1">
@@ -120,7 +123,7 @@ export default class Usuarios extends Component {
                                 </Col>
                                 
                                 <Col xs={24} md={10} className="center">
-                                    <Text strong>Email</Text>
+                                    <Text strong>Precio</Text>
                                 </Col>
                             </Row>
                             }
@@ -133,7 +136,7 @@ export default class Usuarios extends Component {
                                                 <Text strong>{item.nombre}</Text>
                                             </Col>
                                             <Col xs={24} md={10} className="center">
-                                                <Text >{item.email}</Text>
+                                                <Text > $ {item.precio} MXN</Text>
                                             </Col>
 
                                            
@@ -143,8 +146,8 @@ export default class Usuarios extends Component {
                                                     <Button type="primary" onClick={() => {this.setState({usuario: item._id, modalUsuarios:true})}} className='btn-delete' danger  title="Editar"  > Editar </Button>
                                                     <Popconfirm
                                                         placement="topRight"
-                                                        title="¿Deseas eliminar este usuario?"
-                                                        onConfirm={() => axios.delete(`${process.env.REACT_APP_API_URL}/usuarios/delete`, { headers: authHeader(),params: { id: item._id } }).then((response) => {
+                                                        title="¿Deseas eliminar este servicio?"
+                                                        onConfirm={() => axios.delete(`${process.env.REACT_APP_API_URL}/servicios/delete`, { headers: authHeader(),params: { id: item._id } }).then((response) => {
                                                             message.success(response?.data?.message)
                                                             this.getUsuarios()
                                                         })
@@ -170,7 +173,7 @@ export default class Usuarios extends Component {
                 </Spin>
                 
 
-                <UsuariosModal
+                <ServiciosModal
                     visible={this.state.modalUsuarios}
                     usuario={this.state.usuario}
                     onClose={() => {

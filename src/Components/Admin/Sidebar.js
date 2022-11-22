@@ -65,8 +65,8 @@ const Sidebar = (props) => {
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="turnos">
-                            <Link to="/admin/turnos">
-                                Turnos
+                            <Link to="/admin/servicios">
+                                Servicios
                             </Link>
                         </Menu.Item>
                         
