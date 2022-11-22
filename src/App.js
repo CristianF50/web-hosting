@@ -1,24 +1,19 @@
 import logo from './logo.svg';
-import './App.css';
+import './Styles/Global/Global.scss';
+import 'antd/dist/reset.css';
+import {ConfigProvider} from 'antd';
+import { BrowserRouter } from 'react-router-dom';
+import esEs from 'antd/es/locale/es_ES';
+
+import Routes from './Routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ConfigProvider locale={esEs}>
+      <BrowserRouter>
+        <Routes/>
+      </BrowserRouter>
+    </ConfigProvider>
   );
 }
 

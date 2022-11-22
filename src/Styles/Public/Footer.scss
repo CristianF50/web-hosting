@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@500&display=swap');
+
+.footer-public {
+    background: #8d8787 !important;
+    height: auto !important;
+    line-height: unset !important;
+}
+
+.logo {
+    max-width: 120px !important;
+    width: auto !important;
+    padding-bottom: 1em !important;
+}
+
+.slogan {
+    font-family: 'Alexandria', serif;
+    color: #000;
+}
+
+.compania {
+    font-family: 'Alexandria', serif;
+    color: #811a1a !important;
+}
+
+.menu{
+    background-color: #8d8787;
+    line-height: 2rem !important;
+    border: unset !important;
+
+    li {
+        background-color: #fff !important;
+        border-top-left-radius: 9px !important;
+        border-top-right-radius: 9px !important;
+        border-bottom-left-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+}
+
+.mapouter{position:relative;text-align:right;width:100%;}
+
+.gmap_canvas {
+    overflow:hidden;
+    background:none!important;
+    height:250px;
+    width:100%;
+}
+
+.map{
+    width: 100%;
+    height: 250px;
+}
