@@ -18,15 +18,15 @@ class ModalUsuarios extends Component {
         super(props)
         this.state = {
             loading: false,
-            
+
             usuario: {},
-            
+
         }
     }
     formRef = React.createRef();
     componentDidMount() {
-        
-        
+
+
         if (this.props.usuario != undefined) {
             this.getUser();
         }
@@ -39,9 +39,9 @@ class ModalUsuarios extends Component {
     */
     onFinish = (values) => {
         if (this.props.usuario) {
-            this.updateUser(values)
+            this.updateServicio(values)
         } else {
-            this.addUser(values)
+            this.addServicio(values)
         }
     }
 
@@ -50,21 +50,20 @@ class ModalUsuarios extends Component {
     * @param {object} values - Objecto que contiene los valores modificados del formulario
     * @description Añade un nuevo registro de usuario
     */
-    addUser = (values) => {
+    addServicio = (values) => {
         if (this.state.loading) return
 
         this.setState({ loading: true }, () => {
-            axios.post(`${process.env.REACT_APP_API_URL}/usuarios/add`, {
+            axios.post(`${process.env.REACT_APP_API_URL}/servicios/add`, {
                 ...values
-            }, { headers: authHeader() })
-            }).then(response => {
-                message.success('¡Usuario Creado!')
+            }, { headers: authHeader() }).then(response => {
+                message.success('Servicio Creado!')
                 this.props.onCancel()
             }).catch(error => {
-                
-                message.error('Error al crear el Usuario')
+
+                message.error('Error al crear el Servicio')
             }).finally(() => this.setState({ loading: false }))
-        
+        })
     }
 
     /**
@@ -72,9 +71,10 @@ class ModalUsuarios extends Component {
     * @param {object} values - Objecto que contiene los valores modificados del formulario
     * @description Actualiza un usuario
     */
-    updateUser = (values) => {
+    updateServicio = (values) => {
+        console.log(values)
         this.setState({ loading: true })
-        axios.put(`${process.env.REACT_APP_API_URL}/usuarios/update`, {
+        axios.put(`${process.env.REACT_APP_API_URL}/servicios/update`, {
             ...values,
             id: this.props.usuario,
         }, { headers: authHeader() }).then(response => {
@@ -92,26 +92,26 @@ class ModalUsuarios extends Component {
         */
     getUser = () => {
         this.setState({ loading: true })
-        axios.get(`${process.env.REACT_APP_API_URL}/usuarios/get`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/servicios/get`, {
             headers: authHeader(),
             params: {
                 id: this.props.usuario
             }
         }).then(response => {
-          
+
             console.log(response.data)
-            
-         
-            
+
+
+
             this.setState({
                 usuario: response.data.data,
-                
+
             })
             this.formRef.current?.setFieldsValue({
                 ...response.data.data
             })
         }).catch(error => {
-            
+
             message.error('Error al obtener la información del usuario')
         }).finally(() => this.setState({ loading: false }))
     }
@@ -143,15 +143,11 @@ class ModalUsuarios extends Component {
                             >
                                 <Input maxLength={50} />
                             </Form.Item>
-                           
+
                             <Form.Item
-                                name="email"
-                                label="E-mail"
+                                name="precio"
+                                label="Precio"
                                 rules={[
-                                    {
-                                        type: 'email',
-                                        message: 'Email no valido',
-                                    },
                                     {
                                         required: true,
                                         message: 'Ingrese el Email',
@@ -161,17 +157,16 @@ class ModalUsuarios extends Component {
                                 <Input maxLength={60} />
                             </Form.Item>
                             <Form.Item
-                                name="password"
-                                
-                                label="Contraseña"
+                                name="caracteristicas"
+
+                                label="Caracteristicas (Separar por comas)"
                                 rules={[
                                     {
-                                        required: this.props.usuario ? false : true,
-                                        message: 'Ingrese una contraseña',
+                                        message: 'Ingrese al menos una caracteristica',
                                     },
                                 ]}
                             >
-                                <Input type="password" maxLength={60} />
+                                <Input maxLength={60} />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -210,7 +205,7 @@ export default function (props) {
     >
         <Row className="mb-1">
             <Col span={24} className="center">
-                <Title level={2}>Usuario</Title>
+                <Title level={2}>Servicio</Title>
             </Col>
         </Row>
         <ModalUsuarios  {...props} />
