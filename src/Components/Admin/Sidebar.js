@@ -69,6 +69,11 @@ const Sidebar = (props) => {
                                 Servicios
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="sugerencias">
+                            <Link to="/admin/sugerencias">
+                                Sugerencias
+                            </Link>
+                        </Menu.Item>
                         
                     </Menu.ItemGroup> 
                     <Menu.ItemGroup title="SESIÓN">

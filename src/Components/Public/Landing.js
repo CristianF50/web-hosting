@@ -24,6 +24,7 @@ export default class Landing extends Component {
         }
     }
 
+    
 
     componentDidMount() {
         this.props.updateCurrent('compania');

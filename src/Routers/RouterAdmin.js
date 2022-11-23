@@ -8,6 +8,7 @@ import Footer from '../Components/Public/Footer';
 import Sidebar from '../Components/Admin/Sidebar';
 import Usuarios from '../Components/Admin/Usuarios';
 import Servicios from '../Components/Admin/Servicios';
+import Sugerencia from "../Components/Admin/Sugerencia";
 // componentes
 //import Landing from "../components/Public/index";
 
@@ -22,6 +23,7 @@ function PublicRouter() {
             <Routes className="width-100">
                 <Route path="/usuarios" element={<Usuarios/>} />
                 <Route path="/servicios" element={<Servicios/>} />
+                <Route path="/sugerencias" element={<Sugerencia/>} />
                 <Route path="" element={<div/>} />
                 
             </Routes>

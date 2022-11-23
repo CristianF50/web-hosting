@@ -3,13 +3,30 @@ import { Footer, Header } from "antd/es/layout/layout";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import React from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import '../../Styles/Public/Footer.scss';
 
 const { Text, Paragraph, Title } = Typography;
 const { TextArea } = Input;
 
 export default class NavBar extends React.Component {
+
+    addSugerencia = (values) => {
+        
+
+        this.setState({ loading: true }, () => {
+            axios.post(`${process.env.REACT_APP_API_URL}/sugerencia/add`, {
+                ...values
+            },).then(response => {
+                
+            }).catch(error => {
+
+                console.log('Error al crear la sugerencia')
+            }).finally(() => this.setState({ loading: false }))
+        })
+    }
+
+
     render() {
         return (
             <Footer className="footer-public">
@@ -63,6 +80,7 @@ export default class NavBar extends React.Component {
                         <Form
                             name="sugerencias"
                             layout="vertical"
+                            onFinish={this.addSugerencia}
                         >
                             <Row gutter={35}>
                                 <Col xs={24} sm={24} md={12} lg={12} xl={12}>
